@@ -8,7 +8,9 @@
     "server": "npm start --prefix server",
     "seed": "npm run seed --prefix server",
     "start": "node server/server.js",
-    "dev": "node --watch server/server.js"
+    "dev": "node --watch server/server.js",
+    "test": "node server/test-api.js",
+    "package": "py -c \"import zipfile, os; base='.'; zip_p='admission-system-submission.zip'; exc_d={'node_modules','.git','.cache'}; exc_f={'.env',zip_p}; zipf=zipfile.ZipFile(zip_p,'w',zipfile.ZIP_DEFLATED); [zipf.write(os.path.join(r,f), os.path.join('admission-system',os.path.relpath(os.path.join(r,f),base))) for r,d,fs in os.walk(base) for f in fs if not d.intersection(exc_d) and f not in exc_f and not f.endswith('.zip')]; print('Created', zip_p)\""
   },
   "keywords": [
     "mean-stack",
