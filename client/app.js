@@ -212,13 +212,6 @@ const state = {
   alert: null,
   showStaffModal: false,
 
-  // Real-Time Fee Calculator Interactive State
-  feeCalc: {
-    branchIndex: 0,
-    accommodation: 'day-scholar', // 'day-scholar' or 'hostel'
-    scheme: 'general'
-  },
-
   // Hero Quick Evaluator State
   wizard: {
     twelfthPct: 88,
@@ -503,10 +496,9 @@ function renderNavbar() {
             !isAuth
               ? `
             <a class="nav-link-item" onclick="navigateTo('home')">Home</a>
-            <a class="nav-link-item" onclick="navigateTo('home', 'fee-calculator')">Tuition & Fees</a>
+            <a class="nav-link-item" onclick="navigateTo('home', 'programmes')">B.Tech Degrees</a>
             <a class="nav-link-item" onclick="navigateTo('home', 'innovation-labs')">Innovation Labs</a>
             <a class="nav-link-item" onclick="navigateTo('home', 'placements')">Placement Analytics</a>
-            <a class="nav-link-item" onclick="navigateTo('home', 'programmes')">B.Tech Degrees</a>
             <a class="nav-link-item" onclick="navigateTo('home', 'contact')">Contact</a>
             <button class="nav-btn btn-outline" style="margin-left:0.5rem;" onclick="navigateTo('login')">Sign In</button>
             <button class="nav-btn btn-primary" onclick="navigateTo('register')">Apply Online</button>
@@ -547,23 +539,6 @@ function renderAlert() {
 
 // HOME PAGE VIEW (Redesigned with Distinct Visual Identity)
 function renderHome() {
-  const selectedProg = BTECH_PROGRAMMES[state.feeCalc.branchIndex];
-  const isHostel = state.feeCalc.accommodation === 'hostel';
-  const hostelFeePerSem = isHostel ? 48000 : 0;
-  const semTuition = selectedProg.semesterTuition;
-  const semLab = selectedProg.labFee;
-  const semTotalRecurring = semTuition + semLab + hostelFeePerSem;
-
-  // One-time 1st semester fees
-  const admissionFee = 25000;
-  const cautionDeposit = 10000; // 100% refundable
-  const alumniIdCard = 4000;
-  const firstSemOneTime = admissionFee + cautionDeposit + alumniIdCard;
-  const firstSemPayable = semTotalRecurring + firstSemOneTime;
-
-  // 4-Year All-Inclusive Total (8 Semesters)
-  const fourYearGrandTotal = (semTotalRecurring * 8) + firstSemOneTime;
-
   return `
     <div>
       <!-- HERO SECTION: Executive Immersive Design (Not a screenshot copy) -->
@@ -572,7 +547,7 @@ function renderHome() {
           <div>
             <div class="hero-pill-dark">
               <span class="pill-dot"></span>
-              <span>Autonomous Institute • Affiliated to MAKAUT • Approved by AICTE</span>
+              <span>Autonomous Institute • Approved by AICTE • NAAC 'A' Grade Accredited</span>
             </div>
 
             <h1 class="hero-title-dark">
@@ -601,9 +576,6 @@ function renderHome() {
             <div class="hero-actions-dark">
               <button class="nav-btn btn-primary" style="padding:0.8rem 2rem; font-size:1rem;" onclick="${state.token ? "navigateTo('apply')" : "navigateTo('register')"}">
                 Start B.Tech Application →
-              </button>
-              <button class="nav-btn btn-accent" style="padding:0.8rem 1.75rem; font-size:0.95rem;" onclick="navigateTo('home', 'fee-calculator')">
-                Calculate Real-Time Fees
               </button>
               <button class="nav-btn btn-outline" style="background:rgba(255,255,255,0.1); color:#fff; border-color:rgba(255,255,255,0.25);" onclick="navigateTo('home', 'innovation-labs')">
                 Virtual Lab Tour
@@ -662,123 +634,6 @@ function renderHome() {
                 <button class="nav-btn btn-outline" style="justify-content:center; width:100%; font-size:0.85rem; background:rgba(255,255,255,0.1); color:#fff;" onclick="navigateTo('home', 'programmes')">
                   View Cutoff Trends
                 </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- REAL-TIME TUITION & COURSE FEE CALCULATOR SECTION -->
-      <section id="fee-calculator" class="section-wrapper">
-        <div class="section-header">
-          <div>
-            <span class="section-tag">Financial Transparency</span>
-            <h2 class="section-title">Real-Time Tuition & Course Fee Calculator</h2>
-            <p class="section-subtitle">
-              Calculate semester tuition, laboratory dues, refundable deposits, and complete 4-year financial outlays dynamically.
-            </p>
-          </div>
-          <div>
-            <span class="badge badge-selected" style="font-size:0.85rem; padding:0.4rem 0.85rem;">
-              ● Approved by Higher Education Dept.
-            </span>
-          </div>
-        </div>
-
-        <div class="fee-calculator-card">
-          <div class="fee-calc-grid">
-            <!-- Left Controls -->
-            <div class="fee-calc-controls">
-              <div class="form-group">
-                <label>Select B.Tech Degree Programme</label>
-                <select onchange="state.feeCalc.branchIndex = Number(this.value); render();">
-                  ${BTECH_PROGRAMMES.map(
-                    (p, idx) => `
-                    <option value="${idx}" ${state.feeCalc.branchIndex === idx ? 'selected' : ''}>
-                      ${p.title} (${p.campus.split('(')[0].trim()})
-                    </option>
-                  `
-                  ).join('')}
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label>Accommodation Preference</label>
-                <select onchange="state.feeCalc.accommodation = this.value; render();">
-                  <option value="day-scholar" ${!isHostel ? 'selected' : ''}>Day Scholar (Campus Commuter - ₹0)</option>
-                  <option value="hostel" ${isHostel ? 'selected' : ''}>Gurukul / Sector V Hostel (AC + 4 Meals - ₹48,000/sem)</option>
-                </select>
-              </div>
-
-              <div style="background:#fff; border:1px solid #e2e8f0; border-radius:8px; padding:1rem; font-size:0.825rem; color:#475569; line-height:1.6;">
-                <div style="font-weight:700; color:#0f172a; margin-bottom:0.25rem;">📌 Included Fee Inclusions:</div>
-                • AICTE approved semester tuition fee<br/>
-                • Supercomputing, AI & IoT laboratory usage dues<br/>
-                • Digital Central Library & IEEE access licenses<br/>
-                • ₹10,000 Security Deposit (100% Refundable)
-              </div>
-
-              <div style="margin-top:auto;">
-                <button class="nav-btn btn-primary" style="width:100%; justify-content:center; padding:0.75rem;" onclick="selectBranchAndApply('${selectedProg.deptName}')">
-                  Apply for ${selectedProg.title} →
-                </button>
-              </div>
-            </div>
-
-            <!-- Right Live Preview -->
-            <div class="fee-calc-preview">
-              <div>
-                <div class="fee-highlight-banner">
-                  <div>
-                    <div style="font-size:0.85rem; text-transform:uppercase; letter-spacing:0.5px; opacity:0.9;">1st Semester Total Payable</div>
-                    <div style="font-size:0.75rem; opacity:0.8;">Includes One-Time Admission & Caution Deposit</div>
-                  </div>
-                  <div class="amount">₹${firstSemPayable.toLocaleString('en-IN')}</div>
-                </div>
-
-                <table class="fee-breakdown-table">
-                  <tbody>
-                    <tr>
-                      <td>Semester Tuition Fee (Per Semester)</td>
-                      <td>₹${semTuition.toLocaleString('en-IN')}</td>
-                    </tr>
-                    <tr>
-                      <td>High-Performance Lab & Library Fee (Per Semester)</td>
-                      <td>₹${semLab.toLocaleString('en-IN')}</td>
-                    </tr>
-                    ${
-                      isHostel
-                        ? `
-                      <tr>
-                        <td>Hostel Boarding & Mess Dining (Per Semester)</td>
-                        <td>₹${hostelFeePerSem.toLocaleString('en-IN')}</td>
-                      </tr>
-                    `
-                        : ''
-                    }
-                    <tr>
-                      <td>One-Time Admission & University Enrollment Fee</td>
-                      <td>₹${admissionFee.toLocaleString('en-IN')}</td>
-                    </tr>
-                    <tr>
-                      <td>Caution Deposit (100% Refundable on Completion)</td>
-                      <td>₹${cautionDeposit.toLocaleString('en-IN')}</td>
-                    </tr>
-                    <tr>
-                      <td>Alumni Membership & Smart Identity Credentials</td>
-                      <td>₹${alumniIdCard.toLocaleString('en-IN')}</td>
-                    </tr>
-                    <tr style="border-top:2px solid #0f172a; background:#f8fafc;">
-                      <td style="font-weight:800; font-size:1rem; color:#0f172a;">Complete 4-Year (8 Semesters) Outlay</td>
-                      <td style="font-weight:800; font-size:1.15rem; color:#2563eb;">₹${fourYearGrandTotal.toLocaleString('en-IN')}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.8rem; color:#64748b; border-top:1px solid #f1f5f9; padding-top:0.75rem;">
-                <span>Campus Location: <strong>${selectedProg.campus}</strong></span>
-                <span>Seat Intake: <strong>${selectedProg.intake} Seats</strong></span>
               </div>
             </div>
           </div>
@@ -947,7 +802,7 @@ function renderHome() {
             <span class="section-tag">Academic Portfolio</span>
             <h2 class="section-title">Undergraduate Degree Programmes (B.Tech Only)</h2>
             <p class="section-subtitle">
-              4-Year Engineering Degrees Approved by AICTE, Accredited by NBA & Affiliated to MAKAUT
+              4-Year Engineering Degrees Approved by AICTE & Accredited by NBA
             </p>
           </div>
         </div>
@@ -1718,7 +1573,7 @@ function render() {
             <img src="/logo.png" alt="IEM Logo" style="height:48px;" />
             <div>
               <div style="font-weight:800; color:#0f172a; font-size:1.1rem;">Institute of Engineering & Management (IEM), Kolkata</div>
-              <div style="font-size:0.75rem; color:#64748b;">Autonomous Institution Affiliated to MAKAUT • Approved by AICTE • NAAC 'A' Grade Accredited • NBA Accredited Programmes</div>
+              <div style="font-size:0.75rem; color:#64748b;">Autonomous Institution • Approved by AICTE • NAAC 'A' Grade Accredited • NBA Accredited Programmes</div>
             </div>
           </div>
           <div>
