@@ -24,6 +24,20 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ['applicant', 'admin'],
       default: 'applicant'
+    },
+    designation: {
+      type: String,
+      default: 'Student Candidate',
+      trim: true
+    },
+    department: {
+      type: String,
+      default: 'General',
+      trim: true
+    },
+    isMainAdmin: {
+      type: Boolean,
+      default: false
     }
   },
   {

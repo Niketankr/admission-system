@@ -8,18 +8,68 @@ export const memoryStore = {
   users: [
     {
       _id: 'usr_admin_001',
-      name: 'Prof. Dr. Satyajit Chakraborty (Director, IEM Kolkata)',
+      name: 'Prof. Dr. Satyajit Chakraborty',
       email: 'admin@college.edu',
       password: ADMIN_HASH,
       role: 'admin',
+      designation: 'Director & Main Administrator',
+      department: 'Academic Directorate',
+      isMainAdmin: true,
       createdAt: new Date().toISOString()
     },
     {
       _id: 'usr_admin_002',
-      name: 'Prof. Dr. Satyajit Chakraborty (Director, IEM Kolkata)',
+      name: 'Prof. Dr. Satyajit Chakraborty',
       email: 'director@iem.edu.in',
       password: ADMIN_HASH,
       role: 'admin',
+      designation: 'Director & Main Administrator',
+      department: 'Academic Directorate',
+      isMainAdmin: true,
+      createdAt: new Date().toISOString()
+    },
+    {
+      _id: 'usr_admin_003',
+      name: 'Dr. Arundhati Ray',
+      email: 'admissions.officer@iem.edu.in',
+      password: ADMIN_HASH,
+      role: 'admin',
+      designation: 'Convener & Head of Admissions',
+      department: 'Central Admissions Office',
+      isMainAdmin: false,
+      createdAt: new Date().toISOString()
+    },
+    {
+      _id: 'usr_admin_004',
+      name: 'Prof. Dr. Arun Kumar Bar',
+      email: 'hod.cse@iem.edu.in',
+      password: ADMIN_HASH,
+      role: 'admin',
+      designation: 'Head of Department (CSE & AI-ML)',
+      department: 'Computer Science & Engineering',
+      isMainAdmin: false,
+      createdAt: new Date().toISOString()
+    },
+    {
+      _id: 'usr_admin_005',
+      name: 'Prof. Dr. Malay Gangopadhyay',
+      email: 'hod.ece@iem.edu.in',
+      password: ADMIN_HASH,
+      role: 'admin',
+      designation: 'Head of Department (ECE)',
+      department: 'Electronics & Communication Engineering',
+      isMainAdmin: false,
+      createdAt: new Date().toISOString()
+    },
+    {
+      _id: 'usr_admin_006',
+      name: 'Dr. Subhabrata Sengupta',
+      email: 'exam.controller@iem.edu.in',
+      password: ADMIN_HASH,
+      role: 'admin',
+      designation: 'Controller of Examinations',
+      department: 'Office of the Controller of Examinations',
+      isMainAdmin: false,
       createdAt: new Date().toISOString()
     },
     {

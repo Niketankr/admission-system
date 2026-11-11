@@ -87,6 +87,61 @@ async function runTests() {
     });
     assert(illegalTransitionRes.status === 400, '8. State Machine Workflow Validation (Rejects Illegal Status Jump with 400)');
 
+    // 9. Multi-Admin Personas Endpoint
+    const personasRes = await fetch(`${BASE}/auth/admin-personas`);
+    const personas = await personasRes.json();
+    assert(personasRes.status === 200 && personas.admins.length >= 4, '9. Multi-Admin Profiles & Personas (/api/auth/admin-personas)');
+
+    // 10. Main Admin Provisions New Administrator
+    const directorLoginRes = await fetch(`${BASE}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: 'director@iem.edu.in', password: 'admin123' })
+    });
+    const directorAuth = await directorLoginRes.json();
+    const directorToken = directorAuth.token;
+
+    const newAdminEmail = `test.hod.${Date.now()}@iem.edu.in`;
+    const addAdminRes = await fetch(`${BASE}/auth/admins`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${directorToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: 'Dr. Test Administrator',
+        email: newAdminEmail,
+        password: 'admin123',
+        designation: 'Department Head (Research)',
+        department: 'Information Technology'
+      })
+    });
+    const addAdminData = await addAdminRes.json();
+    assert(addAdminRes.status === 201 && addAdminData.admin.email === newAdminEmail, '10. Main Admin Provisions New Administrator (/api/auth/admins)');
+
+    // 11. Security Check: Non-Main Admin Blocked from Provisioning (403 Forbidden)
+    const officerLoginRes = await fetch(`${BASE}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: 'admissions.officer@iem.edu.in', password: 'admin123' })
+    });
+    const officerAuth = await officerLoginRes.json();
+    const officerToken = officerAuth.token;
+
+    const unauthorizedAddRes = await fetch(`${BASE}/auth/admins`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${officerToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: 'Unauthorized User',
+        email: 'unauth@iem.edu.in',
+        password: 'admin123'
+      })
+    });
+    assert(unauthorizedAddRes.status === 403, '11. Security Check: Only Main Admin (Director) Can Provision Admins (403 Forbidden)');
+
     console.log('\n==================================================');
     console.log(`📊 Test Summary: ${passed} Passed, ${failed} Failed`);
     console.log('==================================================');

@@ -18,3 +18,7 @@ Thumbs.db
 
 # Submission archive
 *.zip
+
+# Uploaded candidate files
+server/uploads/*
+!server/uploads/sample-marksheet.pdf
