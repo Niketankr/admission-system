@@ -20,3 +20,4 @@ with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
 
 size_kb = os.path.getsize(zip_path) / 1024
 print(f'Archive created: {zip_path} ({size_kb:.1f} KB)')
+

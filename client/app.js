@@ -227,8 +227,11 @@ function renderNavbar() {
     <header>
       <div class="nav-container">
         <div class="brand" onclick="navigateTo('home')">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-          <span>CollegeAdmit</span>
+          <img src="/logo.png" alt="IEM Logo" class="brand-logo" />
+          <div class="brand-text">
+            <span class="brand-title">IEM Admissions</span>
+            <span class="brand-subtext">Institute of Engineering & Management</span>
+          </div>
           <span class="brand-badge">MEAN Stack POC</span>
         </div>
         <div class="nav-links">
@@ -289,12 +292,18 @@ function renderAlert() {
 // Views
 function renderHome() {
   return `
-    <div style="text-align:center; padding:3rem 1rem; max-width:800px; margin:0 auto;">
+    <div style="text-align:center; padding:2.5rem 1rem 3rem; max-width:800px; margin:0 auto;">
+      <div style="margin-bottom:1.25rem;">
+        <img src="/logo.png" alt="Institute of Engineering & Management" style="max-height:100px; width:auto; filter:drop-shadow(0 4px 6px rgba(0,0,0,0.08));" />
+      </div>
       <span class="brand-badge" style="font-size:0.85rem; padding:0.35rem 0.85rem;">PCCCS504 Software Engineering Lab POC</span>
-      <h1 style="font-size:2.6rem; font-weight:800; margin:1.25rem 0 0.75rem; color:#0f172a; line-height:1.2;">
-        Online Admission System
+      <h1 style="font-size:2.4rem; font-weight:800; margin:1rem 0 0.35rem; color:#0f172a; line-height:1.2;">
+        Institute of Engineering & Management
       </h1>
-      <p style="font-size:1.15rem; color:#64748b; line-height:1.6; margin-bottom:2rem;">
+      <h2 style="font-size:1.35rem; font-weight:600; color:#2563eb; margin-bottom:1rem;">
+        Online Admission Portal
+      </h2>
+      <p style="font-size:1.05rem; color:#64748b; line-height:1.6; margin-bottom:2rem;">
         Demonstrating a complete Proof of Concept (POC) built with the <strong>MEAN Stack</strong> (MongoDB, Express.js, Angular Architecture, and Node.js) featuring JWT Authentication, Document Upload with Multer, State Workflow Engine, and Admin Analytics.
       </p>
       
@@ -969,7 +978,11 @@ function render() {
     </main>
     ${renderReviewModal()}
     <footer>
-      College Admission System (POC) &bull; Software Engineering Lab (PCCCS504) &bull; MEAN Stack Architecture
+      <div style="display:flex; align-items:center; justify-content:center; gap:0.5rem; margin-bottom:0.35rem;">
+        <img src="/logo.png" alt="IEM" style="height:22px; vertical-align:middle;" />
+        <strong style="color:#1e293b;">Institute of Engineering & Management (IEM)</strong>
+      </div>
+      <span>Online Admission System (POC) &bull; Software Engineering Lab (PCCCS504) &bull; MEAN Stack Architecture</span>
     </footer>
   `;
 }

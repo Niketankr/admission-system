@@ -64,6 +64,36 @@ header {
   cursor: pointer;
 }
 
+.brand-logo {
+  height: 42px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.brand:hover .brand-logo {
+  transform: scale(1.04);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: #0f172a;
+  line-height: 1.15;
+}
+
+.brand-subtext {
+  font-size: 0.68rem;
+  color: #64748b;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
 .brand-badge {
   font-size: 0.75rem;
   background: var(--primary-light);
