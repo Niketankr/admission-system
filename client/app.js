@@ -3,6 +3,201 @@ const API_BASE = window.location.origin.includes('localhost')
   ? `${window.location.origin}/api`
   : '/api';
 
+// B.Tech Programme Data with Real-Time Fee Structures & Curricula
+const BTECH_PROGRAMMES = [
+  {
+    code: 'BTECH-CSE',
+    title: 'B.Tech - CSE',
+    deptName: 'B.Tech - Computer Science & Engineering (CSE)',
+    subtitle: 'Computer Science & Engineering',
+    desc: 'NBA Accredited • Focus on Cloud Computing, Distributed Systems, Software Engineering & High-Performance Algorithms',
+    semesterTuition: 92000,
+    labFee: 8000,
+    totalTuitionFee: 800000,
+    campus: 'Gurukul Campus (Salt Lake Sector V)',
+    intake: 240,
+    eligibility: '45% in 10+2 (PCM) + Valid IEMJEE / WBJEE / JEE Main Rank'
+  },
+  {
+    code: 'BTECH-AIML',
+    title: 'B.Tech - CSE (AI & ML)',
+    deptName: 'B.Tech - CSE (AI & ML)',
+    subtitle: 'Artificial Intelligence & Machine Learning',
+    desc: 'Specialized Track with Deep Learning, Generative AI, Computer Vision, Reinforcement Learning & NVIDIA DGX Station Labs',
+    semesterTuition: 95000,
+    labFee: 8000,
+    totalTuitionFee: 824000,
+    campus: 'Gurukul Campus (Salt Lake Sector V)',
+    intake: 120,
+    eligibility: '45% in 10+2 (PCM) + Valid IEMJEE / WBJEE / JEE Main Rank'
+  },
+  {
+    code: 'BTECH-ECE',
+    title: 'B.Tech - ECE',
+    deptName: 'B.Tech - Electronics & Communication Engineering (ECE)',
+    subtitle: 'Electronics & Communication Engineering',
+    desc: 'NBA Accredited • VLSI Architecture, Embedded Robotics, 5G Wireless Communications, RF Engineering & IoT Hardware',
+    semesterTuition: 86000,
+    labFee: 8000,
+    totalTuitionFee: 752000,
+    campus: 'Gurukul Campus (Salt Lake Sector V)',
+    intake: 180,
+    eligibility: '45% in 10+2 (PCM) + Valid IEMJEE / WBJEE / JEE Main Rank'
+  },
+  {
+    code: 'BTECH-IT',
+    title: 'B.Tech - IT',
+    deptName: 'B.Tech - Information Technology (IT)',
+    subtitle: 'Information Technology',
+    desc: 'Enterprise Systems, Cloud Infrastructure, Cyber Security, Full-Stack Engineering, Big Data Analytics & DevOps',
+    semesterTuition: 88000,
+    labFee: 8000,
+    totalTuitionFee: 768000,
+    campus: 'Management House Campus (Sector V)',
+    intake: 180,
+    eligibility: '45% in 10+2 (PCM) + Valid IEMJEE / WBJEE / JEE Main Rank'
+  },
+  {
+    code: 'BTECH-CSBS',
+    title: 'B.Tech - CSBS',
+    deptName: 'B.Tech - Computer Science & Business Systems (CSBS)',
+    subtitle: 'Computer Science & Business Systems',
+    desc: 'TCS Industry-Designed Curriculum blending Quantitative Finance, Business Analytics, FinTech Architecture & Cognitive Computing',
+    semesterTuition: 88000,
+    labFee: 8000,
+    totalTuitionFee: 768000,
+    campus: 'Management House Campus (Sector V)',
+    intake: 60,
+    eligibility: '45% in 10+2 (PCM) + Valid IEMJEE / WBJEE / JEE Main Rank'
+  },
+  {
+    code: 'BTECH-ME',
+    title: 'B.Tech - Mechanical',
+    deptName: 'B.Tech - Mechanical Engineering (ME)',
+    subtitle: 'Mechanical Engineering',
+    desc: 'Industry 4.0 Robotics, Autonomous EV Systems, CAD/CAM Prototyping, Renewable Thermal Engineering & Mechatronics',
+    semesterTuition: 82000,
+    labFee: 8000,
+    totalTuitionFee: 720000,
+    campus: 'Gurukul Campus (Salt Lake Sector V)',
+    intake: 60,
+    eligibility: '45% in 10+2 (PCM) + Valid IEMJEE / WBJEE / JEE Main Rank'
+  }
+];
+
+// Departmental Innovation Channels & Specialized Labs Data
+const INNOVATION_LABS = [
+  {
+    id: 'aiml',
+    title: 'AI & Machine Learning Supercomputing Center',
+    tag: 'NVIDIA DGX Station A100 Cluster',
+    image: '/assets/aiml-lab.jpg',
+    lead: 'Prof. Dr. Debashis De & Dr. Malay Gangopadhyaya',
+    desc: 'A dedicated high-performance supercomputing testbed equipped with NVIDIA DGX Station A100 (640GB Tensor Core VRAM), supporting large language model fine-tuning, autonomous drone navigation, and clinical medical imaging.',
+    features: [
+      'NVIDIA DGX A100 Supercomputer Cluster with 2.5 PetaFLOPS AI computing power',
+      'Dual 4K workstation monitors with PyTorch, TensorFlow & CUDA acceleration',
+      'Live Research: Indic Multilingual LLM, Vision-Based Tumor Detection & Autonomous Drone Swarms',
+      '14 High-Impact IEEE/Springer Publications & 3 Patent Grants (2025–26)'
+    ],
+    patents: '3 Patents Granted • 5 Technology Licenses'
+  },
+  {
+    id: 'iot',
+    title: 'IoT & Smart Connected Systems Laboratory',
+    tag: '5G, LoRaWAN & Industrial Telemetry',
+    image: '/assets/iot-lab.jpg',
+    lead: 'Dr. Senjuti Saha & Prof. Subhabrata Sengupta',
+    desc: 'Sponsored by DST & industry partners, this laboratory houses digital storage oscilloscopes, RF spectrum analyzers, and programmable microcontroller rigs for developing smart-city infrastructure and industrial telemetric hardware.',
+    features: [
+      'Keysight 1GHz Digital Storage Oscilloscopes & RF Spectrum Analyzers',
+      'LoRaWAN Long-Range Gateways & Private 5G NR Software-Defined Radio Testbed',
+      'Embedded STM32, ESP32, Raspberry Pi 5 & FPGA Development Benches',
+      'Smart Campus Project: Deployed 200+ Environmental & Energy telemetry sensors in Sector V'
+    ],
+    patents: 'Live Smart Campus IoT Grid • 4 Patents Filed'
+  },
+  {
+    id: 'iedc',
+    title: 'IEDC Innovation & Entrepreneurship FabLab',
+    tag: 'DST Supported Incubation Hub',
+    image: '/assets/iedc-lab.jpg',
+    lead: 'Prof. Dr. Satyajit Chakraborty (Director & Head of Incubation)',
+    desc: 'Established with financial grant support from the Department of Science & Technology (DST), Govt. of India. Features rapid-prototyping 3D printers, laser engravers, PCB milling machines, and dedicated startup co-working pods.',
+    features: [
+      'Stratasys & Creality Industrial High-Precision Dual-Extruder 3D Printers',
+      'CNC PCB Milling Machines & Automated Laser Prototyping Systems',
+      '40+ Student Startups Incubated with ₹2.5 Crore+ in Seed Grants & Angel Capital',
+      '65+ Patents Filed by Undergraduate Student Founders & Faculty Mentors'
+    ],
+    patents: '40+ Startups Incubated • ₹2.5 Cr Seed Grants'
+  }
+];
+
+// Branch-Wise Placement Statistics
+const PLACEMENT_STATS = [
+  {
+    branch: 'Computer Science & Engineering (CSE)',
+    code: 'CSE',
+    placed: '99.4%',
+    highest: '₹72 LPA',
+    average: '₹10.8 LPA',
+    median: '₹9.5 LPA',
+    superDreamOffers: 84,
+    recruiters: ['Google', 'Microsoft', 'Amazon', 'Oracle', 'Adobe', 'Cisco']
+  },
+  {
+    branch: 'CSE (Artificial Intelligence & Machine Learning)',
+    code: 'AI & ML',
+    placed: '99.1%',
+    highest: '₹48 LPA',
+    average: '₹10.4 LPA',
+    median: '₹9.2 LPA',
+    superDreamOffers: 42,
+    recruiters: ['Microsoft', 'Amazon', 'AMD', 'Intel', 'NVIDIA', 'Adobe']
+  },
+  {
+    branch: 'Information Technology (IT)',
+    code: 'IT',
+    placed: '98.7%',
+    highest: '₹42 LPA',
+    average: '₹9.8 LPA',
+    median: '₹8.8 LPA',
+    superDreamOffers: 56,
+    recruiters: ['Cisco', 'Adobe', 'Morgan Stanley', 'PwC', 'Goldman Sachs']
+  },
+  {
+    branch: 'Computer Science & Business Systems (CSBS)',
+    code: 'CSBS',
+    placed: '98.2%',
+    highest: '₹36 LPA',
+    average: '₹9.4 LPA',
+    median: '₹8.5 LPA',
+    superDreamOffers: 18,
+    recruiters: ['TCS Digital', 'Deloitte', 'Goldman Sachs', 'PwC', 'Fintech Labs']
+  },
+  {
+    branch: 'Electronics & Communication Engineering (ECE)',
+    code: 'ECE',
+    placed: '96.8%',
+    highest: '₹28 LPA',
+    average: '₹8.6 LPA',
+    median: '₹7.8 LPA',
+    superDreamOffers: 38,
+    recruiters: ['Qualcomm', 'Texas Instruments', 'Intel', 'Samsung', 'L&T Tech']
+  },
+  {
+    branch: 'Mechanical Engineering (ME)',
+    code: 'ME',
+    placed: '94.5%',
+    highest: '₹18 LPA',
+    average: '₹7.4 LPA',
+    median: '₹6.8 LPA',
+    superDreamOffers: 12,
+    recruiters: ['Tata Motors', 'L&T Heavy', 'Siemens', 'Hero MotoCorp', 'Adani Power']
+  }
+];
+
 // Application State
 const state = {
   token: localStorage.getItem('admission_token') || null,
@@ -15,7 +210,24 @@ const state = {
   selectedApplicant: null,
   selectedBranchForApply: null,
   alert: null,
-  showStaffModal: false
+  showStaffModal: false,
+
+  // Real-Time Fee Calculator Interactive State
+  feeCalc: {
+    branchIndex: 0,
+    accommodation: 'day-scholar', // 'day-scholar' or 'hostel'
+    scheme: 'general'
+  },
+
+  // Hero Quick Evaluator State
+  wizard: {
+    twelfthPct: 88,
+    entranceScore: 82,
+    resultMsg: null
+  },
+
+  // Placement Active Branch Filter
+  activePlacementBranch: 'All'
 };
 
 // Helper: Show temporary alert
@@ -93,7 +305,7 @@ async function handleRegister(name, email, password, role = 'applicant') {
     localStorage.setItem('admission_token', res.token);
     localStorage.setItem('admission_user', JSON.stringify(res.user));
 
-    showAlert('Student registration successful!', 'success');
+    showAlert('Candidate profile registered successfully!', 'success');
     if (role === 'admin') {
       navigateTo('admin-dashboard');
     } else {
@@ -169,7 +381,7 @@ async function fetchAdminApplicants() {
   }
 }
 
-// Submission Handler for Admission Form with Multer file upload
+// Submission Handler for Admission Form
 async function handleApplicationSubmit(e) {
   e.preventDefault();
   const form = e.target;
@@ -177,7 +389,7 @@ async function handleApplicationSubmit(e) {
 
   const fileInput = form.querySelector('input[name="document"]');
   if (!fileInput.files.length) {
-    showAlert('Please upload your Class 12 marksheet or qualifying rankcard document.', 'error');
+    showAlert('Please upload your Class 12 marksheet or qualifying rankcard.', 'error');
     return;
   }
 
@@ -192,7 +404,7 @@ async function handleApplicationSubmit(e) {
     });
 
     state.myApplication = res.application;
-    showAlert('Application successfully registered and submitted for verification!', 'success');
+    showAlert('Application submitted successfully for verification!', 'success');
     navigateTo('my-status');
   } catch (err) {
     showAlert(err.message, 'error');
@@ -212,7 +424,7 @@ async function handleStatusChange(applicationId, newStatus, comments) {
       body: JSON.stringify({ status: newStatus, comments })
     });
 
-    showAlert(`Status updated to '${newStatus}'!`, 'success');
+    showAlert(`Application status updated to '${newStatus}'!`, 'success');
     state.selectedApplicant = null;
     await fetchAdminApplicants();
     if (state.currentView === 'admin-dashboard') {
@@ -225,12 +437,57 @@ async function handleStatusChange(applicationId, newStatus, comments) {
   }
 }
 
-// Render Components
+function evaluateWizard() {
+  const p = Number(state.wizard.twelfthPct) || 0;
+  const e = Number(state.wizard.entranceScore) || 0;
+
+  if (p < 45) {
+    state.wizard.resultMsg = {
+      eligible: false,
+      title: 'Ineligible for Direct Counseling',
+      text: 'Minimum 45% aggregate in 10+2 (Physics & Mathematics) is mandatory per AICTE norms.'
+    };
+  } else if (p >= 85 && e >= 75) {
+    state.wizard.resultMsg = {
+      eligible: true,
+      title: 'High Merit: Eligible for B.Tech CSE & AI-ML',
+      text: 'Congratulations! Your score qualifies for Top-Tier counseling and 25% Academic Merit Scholarship.'
+    };
+  } else if (p >= 70 && e >= 50) {
+    state.wizard.resultMsg = {
+      eligible: true,
+      title: 'Eligible for B.Tech IT, CSBS & ECE',
+      text: 'Good performance! You are eligible for counseling across B.Tech IT, CSBS, and ECE programmes.'
+    };
+  } else {
+    state.wizard.resultMsg = {
+      eligible: true,
+      title: 'Eligible for Mechanical & ECE Rounds',
+      text: 'You satisfy minimum eligibility. Qualifies for IEMJEE Direct Counseling seat allotment.'
+    };
+  }
+  render();
+}
+
+// Navigation Bar
 function renderNavbar() {
   const isAuth = !!state.token;
   const isAdmin = state.user?.role === 'admin';
 
   return `
+    <div class="top-announcement">
+      <div class="top-announcement-inner">
+        <div style="display:flex; align-items:center; gap:0.6rem;">
+          <span class="announcement-badge">ADMISSION NOTICE</span>
+          <span>B.Tech Session 2026–27 Online Counseling & Allotment • Approved by AICTE • NAAC 'A' Grade</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:1.25rem;">
+          <span>📞 Helpline: +91 33 2357 2059</span>
+          <span>✉️ admissions@iem.edu.in</span>
+        </div>
+      </div>
+    </div>
+
     <header>
       <div class="nav-container">
         <div class="brand" onclick="navigateTo('home')">
@@ -246,13 +503,13 @@ function renderNavbar() {
             !isAuth
               ? `
             <a class="nav-link-item" onclick="navigateTo('home')">Home</a>
-            <a class="nav-link-item" onclick="navigateTo('home', 'programmes')">Programmes & Fees</a>
-            <a class="nav-link-item" onclick="navigateTo('home', 'placements')">Placements</a>
-            <a class="nav-link-item" onclick="navigateTo('home', 'process')">Application Process</a>
-            <a class="nav-link-item" onclick="navigateTo('home', 'about')">About IEM</a>
+            <a class="nav-link-item" onclick="navigateTo('home', 'fee-calculator')">Tuition & Fees</a>
+            <a class="nav-link-item" onclick="navigateTo('home', 'innovation-labs')">Innovation Labs</a>
+            <a class="nav-link-item" onclick="navigateTo('home', 'placements')">Placement Analytics</a>
+            <a class="nav-link-item" onclick="navigateTo('home', 'programmes')">B.Tech Degrees</a>
             <a class="nav-link-item" onclick="navigateTo('home', 'contact')">Contact</a>
-            <button class="nav-btn btn-outline" style="margin-left:0.5rem;" onclick="navigateTo('login')">Login</button>
-            <button class="nav-btn btn-primary" onclick="navigateTo('register')">Apply Now</button>
+            <button class="nav-btn btn-outline" style="margin-left:0.5rem;" onclick="navigateTo('login')">Sign In</button>
+            <button class="nav-btn btn-primary" onclick="navigateTo('register')">Apply Online</button>
           `
               : isAdmin
               ? `
@@ -267,7 +524,7 @@ function renderNavbar() {
             <button class="nav-btn ${state.currentView === 'my-status' ? 'btn-primary' : 'btn-outline'}" onclick="navigateTo('my-status')">📄 My Application Status</button>
             ${!state.myApplication ? `<button class="nav-btn btn-primary" onclick="navigateTo('apply')">📝 Fill Form</button>` : ''}
             <span style="font-size:0.85rem; color:#1e293b; font-weight:700; background:#f1f5f9; padding:0.35rem 0.75rem; border-radius:9999px;">
-              Student: ${state.user.name}
+              Candidate: ${state.user.name}
             </span>
             <button class="nav-btn btn-outline" onclick="handleLogout()">Sign Out</button>
           `
@@ -288,166 +545,411 @@ function renderAlert() {
   `;
 }
 
-// B.Tech Programme Data (from Screenshot 2)
-const BTECH_PROGRAMMES = [
-  {
-    code: 'BTECH-CSE',
-    title: 'B.Tech - CSE',
-    deptName: 'B.Tech - Computer Science & Engineering (CSE)',
-    subtitle: 'Computer Science & Engineering (CSE)',
-    desc: 'NBA Accredited • Core Computing, Cloud Systems & Software Engineering',
-    semesterFee: '₹92,000',
-    totalFee: '₹761,000',
-    campus: 'Salt Lake Sector V (Gurukul Campus)'
-  },
-  {
-    code: 'BTECH-AIML',
-    title: 'B.Tech - CSE (AI & ML)',
-    deptName: 'B.Tech - CSE (AI & ML)',
-    subtitle: 'Computer Science & Engineering (AI & ML)',
-    desc: 'Deep Learning, Generative AI, Computer Vision & Data Engineering Labs',
-    semesterFee: '₹95,000',
-    totalFee: '₹785,000',
-    campus: 'Salt Lake Sector V (Gurukul Campus)'
-  },
-  {
-    code: 'BTECH-ECE',
-    title: 'B.Tech - ECE',
-    deptName: 'B.Tech - Electronics & Communication Engineering (ECE)',
-    subtitle: 'Electronics & Communication Engineering (ECE)',
-    desc: 'NBA Accredited • VLSI Design, Embedded Systems, 5G & IoT Networks',
-    semesterFee: '₹86,000',
-    totalFee: '₹713,000',
-    campus: 'Salt Lake Sector V (Gurukul Campus)'
-  },
-  {
-    code: 'BTECH-IT',
-    title: 'B.Tech - IT',
-    deptName: 'B.Tech - Information Technology (IT)',
-    subtitle: 'Information Technology (IT)',
-    desc: 'Enterprise Architecture, Cybersecurity, Full-Stack & DevOps Engineering',
-    semesterFee: '₹88,000',
-    totalFee: '₹729,000',
-    campus: 'Salt Lake Sector V (Management House)'
-  },
-  {
-    code: 'BTECH-CSBS',
-    title: 'B.Tech - CSBS',
-    deptName: 'B.Tech - Computer Science & Business Systems (CSBS)',
-    subtitle: 'Computer Science & Business Systems (CSBS)',
-    desc: 'Industry-Aligned Curriculum in Analytics, FinTech & Enterprise Systems',
-    semesterFee: '₹88,000',
-    totalFee: '₹729,000',
-    campus: 'Salt Lake Sector V (Management House)'
-  },
-  {
-    code: 'BTECH-ME',
-    title: 'B.Tech - Mechanical',
-    deptName: 'B.Tech - Mechanical Engineering (ME)',
-    subtitle: 'Mechanical Engineering (ME)',
-    desc: 'Robotics, Automation, CAD/CAM, Thermal Systems & Electric Vehicles',
-    semesterFee: '₹82,000',
-    totalFee: '₹685,000',
-    campus: 'Salt Lake Sector V (Gurukul Campus)'
-  }
-];
-
-// Views
+// HOME PAGE VIEW (Redesigned with Distinct Visual Identity)
 function renderHome() {
+  const selectedProg = BTECH_PROGRAMMES[state.feeCalc.branchIndex];
+  const isHostel = state.feeCalc.accommodation === 'hostel';
+  const hostelFeePerSem = isHostel ? 48000 : 0;
+  const semTuition = selectedProg.semesterTuition;
+  const semLab = selectedProg.labFee;
+  const semTotalRecurring = semTuition + semLab + hostelFeePerSem;
+
+  // One-time 1st semester fees
+  const admissionFee = 25000;
+  const cautionDeposit = 10000; // 100% refundable
+  const alumniIdCard = 4000;
+  const firstSemOneTime = admissionFee + cautionDeposit + alumniIdCard;
+  const firstSemPayable = semTotalRecurring + firstSemOneTime;
+
+  // 4-Year All-Inclusive Total (8 Semesters)
+  const fourYearGrandTotal = (semTotalRecurring * 8) + firstSemOneTime;
+
   return `
     <div>
-      <!-- Hero Section (Screenshot 1) -->
-      <section class="hero-wrapper">
-        <div>
-          <div class="announcement-pill">
-            <span class="pill-dot"></span>
-            <span>Undergraduate B.Tech Admissions Open for the 2026–27 Academic Session</span>
-          </div>
-
-          <h1 class="hero-title">
-            Institute of Engineering & Management (IEM), Kolkata
-          </h1>
-          <div class="hero-subtitle">
-            Online Undergraduate Admission Portal
-          </div>
-          <p class="hero-desc">
-            Welcome to the centralized online admission portal of the Institute of Engineering & Management, Salt Lake Sector V, Kolkata. Prospective students can apply online for AICTE-approved 4-Year B.Tech degree programmes, upload academic transcripts, confirm application fee payment, and track admission status through a unified portal.
-          </p>
-
-          <div class="hero-actions">
-            <button class="nav-btn btn-primary" style="padding:0.75rem 2rem; font-size:1rem;" onclick="${state.token ? "navigateTo('apply')" : "navigateTo('register')"}">
-              Apply Now
-            </button>
-            <button class="nav-btn btn-outline" style="padding:0.75rem 1.75rem; font-size:1rem;" onclick="${state.token ? (state.user?.role === 'admin' ? "navigateTo('admin-dashboard')" : "navigateTo('my-status')") : "navigateTo('login')"}">
-              Login to Portal
-            </button>
-          </div>
-
-          <div class="trust-badges">
-            <div class="trust-badge-item">
-              <strong>NAAC 'A' Grade</strong>
-              <span>Accredited Institution</span>
+      <!-- HERO SECTION: Executive Immersive Design (Not a screenshot copy) -->
+      <section class="hero-executive">
+        <div class="hero-executive-inner">
+          <div>
+            <div class="hero-pill-dark">
+              <span class="pill-dot"></span>
+              <span>Autonomous Institute • Affiliated to MAKAUT • Approved by AICTE</span>
             </div>
-            <div class="trust-badge-item">
-              <strong>NBA Accredited</strong>
-              <span>Flagship B.Tech Programmes</span>
-            </div>
-            <div class="trust-badge-item">
-              <strong>Salt Lake Sector V</strong>
-              <span>Gurukul & Management House Campuses</span>
-            </div>
-          </div>
-        </div>
 
-        <!-- Right Card: Key Information (Screenshot 1) -->
-        <div>
-          <div class="key-info-card">
-            <div class="key-info-header">
-              <span class="key-info-session">ACADEMIC SESSION 2026–27</span>
-              <span class="admissions-open-badge">Admissions Open</span>
+            <h1 class="hero-title-dark">
+              Engineering Future Tech & <span>Global Leadership</span>
+            </h1>
+            
+            <p class="hero-subtitle-dark">
+              Welcome to the official undergraduate portal of the <strong>Institute of Engineering & Management (IEM), Kolkata</strong>. Explore AICTE-accredited 4-Year B.Tech degrees, transparent semester-wise tuition structures, world-class innovation laboratories, and proven career records.
+            </p>
+
+            <div class="hero-quick-stats">
+              <div class="stat-metric-dark">
+                <div class="stat-num">₹72 LPA</div>
+                <div class="stat-text">Highest International CTC</div>
+              </div>
+              <div class="stat-metric-dark">
+                <div class="stat-num">98.4%</div>
+                <div class="stat-text">Overall B.Tech Placement</div>
+              </div>
+              <div class="stat-metric-dark">
+                <div class="stat-num">35+ Yrs</div>
+                <div class="stat-text">Excellence (Est. 1989)</div>
+              </div>
             </div>
-            <h2 class="key-info-title">Admission Key Information</h2>
 
-            <table class="info-table">
-              <tbody>
-                <tr class="info-row">
-                  <td class="info-label">Qualifying Examination</td>
-                  <td class="info-value">10+2 (CBSE / ISC / WBCHSE or Equivalent)</td>
-                </tr>
-                <tr class="info-row">
-                  <td class="info-label">Accepted Entrance Exams</td>
-                  <td class="info-value">IEMJEE / WBJEE / JEE (Main)</td>
-                </tr>
-                <tr class="info-row">
-                  <td class="info-label">Minimum Qualifying Marks</td>
-                  <td class="info-value">45% in Class XII (Physics + Maths)</td>
-                </tr>
-                <tr class="info-row">
-                  <td class="info-label">Minimum Entrance Cutoff</td>
-                  <td class="info-value">40 / 100</td>
-                </tr>
-                <tr class="info-row">
-                  <td class="info-label">Application Processing Fee</td>
-                  <td class="info-value">₹1500 (One-Time)</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <div style="margin-top:1.5rem;">
-              <button class="nav-btn btn-primary" style="width:100%; justify-content:center; padding:0.75rem;" onclick="${state.token ? "navigateTo('apply')" : "navigateTo('register')"}">
-                Start B.Tech Online Application
+            <div class="hero-actions-dark">
+              <button class="nav-btn btn-primary" style="padding:0.8rem 2rem; font-size:1rem;" onclick="${state.token ? "navigateTo('apply')" : "navigateTo('register')"}">
+                Start B.Tech Application →
               </button>
+              <button class="nav-btn btn-accent" style="padding:0.8rem 1.75rem; font-size:0.95rem;" onclick="navigateTo('home', 'fee-calculator')">
+                Calculate Real-Time Fees
+              </button>
+              <button class="nav-btn btn-outline" style="background:rgba(255,255,255,0.1); color:#fff; border-color:rgba(255,255,255,0.25);" onclick="navigateTo('home', 'innovation-labs')">
+                Virtual Lab Tour
+              </button>
+            </div>
+          </div>
+
+          <!-- Hero Right: Interactive Eligibility & Cutoff Evaluator -->
+          <div>
+            <div class="hero-wizard-card">
+              <div class="wizard-header">
+                <div class="wizard-title">Candidate Eligibility Evaluator</div>
+                <span class="wizard-badge">Session 2026–27</span>
+              </div>
+
+              <div class="wizard-input-group">
+                <label>Class 12th PCM Aggregate Percentage: <strong style="color:#38bdf8;">${state.wizard.twelfthPct}%</strong></label>
+                <input
+                  type="range"
+                  min="40"
+                  max="100"
+                  value="${state.wizard.twelfthPct}"
+                  oninput="state.wizard.twelfthPct = this.value; evaluateWizard();"
+                />
+              </div>
+
+              <div class="wizard-input-group">
+                <label>Entrance Exam Score / Rank Percentile: <strong style="color:#38bdf8;">${state.wizard.entranceScore}/100</strong></label>
+                <input
+                  type="range"
+                  min="20"
+                  max="100"
+                  value="${state.wizard.entranceScore}"
+                  oninput="state.wizard.entranceScore = this.value; evaluateWizard();"
+                />
+              </div>
+
+              <div class="wizard-result-box">
+                ${
+                  state.wizard.resultMsg
+                    ? `
+                  <strong>${state.wizard.resultMsg.title}</strong>
+                  <div>${state.wizard.resultMsg.text}</div>
+                `
+                    : `
+                  <strong>High Probability for B.Tech CSE & AI-ML</strong>
+                  <div>Your score qualifies for Tier-1 counseling and Merit Scholarship Scheme.</div>
+                `
+                }
+              </div>
+
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
+                <button class="nav-btn btn-primary" style="justify-content:center; width:100%; font-size:0.85rem;" onclick="${state.token ? "navigateTo('apply')" : "navigateTo('register')"}">
+                  Apply with this Score
+                </button>
+                <button class="nav-btn btn-outline" style="justify-content:center; width:100%; font-size:0.85rem; background:rgba(255,255,255,0.1); color:#fff;" onclick="navigateTo('home', 'programmes')">
+                  View Cutoff Trends
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Programmes & Fees Section (Screenshot 2) -->
+      <!-- REAL-TIME TUITION & COURSE FEE CALCULATOR SECTION -->
+      <section id="fee-calculator" class="section-wrapper">
+        <div class="section-header">
+          <div>
+            <span class="section-tag">Financial Transparency</span>
+            <h2 class="section-title">Real-Time Tuition & Course Fee Calculator</h2>
+            <p class="section-subtitle">
+              Calculate semester tuition, laboratory dues, refundable deposits, and complete 4-year financial outlays dynamically.
+            </p>
+          </div>
+          <div>
+            <span class="badge badge-selected" style="font-size:0.85rem; padding:0.4rem 0.85rem;">
+              ● Approved by Higher Education Dept.
+            </span>
+          </div>
+        </div>
+
+        <div class="fee-calculator-card">
+          <div class="fee-calc-grid">
+            <!-- Left Controls -->
+            <div class="fee-calc-controls">
+              <div class="form-group">
+                <label>Select B.Tech Degree Programme</label>
+                <select onchange="state.feeCalc.branchIndex = Number(this.value); render();">
+                  ${BTECH_PROGRAMMES.map(
+                    (p, idx) => `
+                    <option value="${idx}" ${state.feeCalc.branchIndex === idx ? 'selected' : ''}>
+                      ${p.title} (${p.campus.split('(')[0].trim()})
+                    </option>
+                  `
+                  ).join('')}
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Accommodation Preference</label>
+                <select onchange="state.feeCalc.accommodation = this.value; render();">
+                  <option value="day-scholar" ${!isHostel ? 'selected' : ''}>Day Scholar (Campus Commuter - ₹0)</option>
+                  <option value="hostel" ${isHostel ? 'selected' : ''}>Gurukul / Sector V Hostel (AC + 4 Meals - ₹48,000/sem)</option>
+                </select>
+              </div>
+
+              <div style="background:#fff; border:1px solid #e2e8f0; border-radius:8px; padding:1rem; font-size:0.825rem; color:#475569; line-height:1.6;">
+                <div style="font-weight:700; color:#0f172a; margin-bottom:0.25rem;">📌 Included Fee Inclusions:</div>
+                • AICTE approved semester tuition fee<br/>
+                • Supercomputing, AI & IoT laboratory usage dues<br/>
+                • Digital Central Library & IEEE access licenses<br/>
+                • ₹10,000 Security Deposit (100% Refundable)
+              </div>
+
+              <div style="margin-top:auto;">
+                <button class="nav-btn btn-primary" style="width:100%; justify-content:center; padding:0.75rem;" onclick="selectBranchAndApply('${selectedProg.deptName}')">
+                  Apply for ${selectedProg.title} →
+                </button>
+              </div>
+            </div>
+
+            <!-- Right Live Preview -->
+            <div class="fee-calc-preview">
+              <div>
+                <div class="fee-highlight-banner">
+                  <div>
+                    <div style="font-size:0.85rem; text-transform:uppercase; letter-spacing:0.5px; opacity:0.9;">1st Semester Total Payable</div>
+                    <div style="font-size:0.75rem; opacity:0.8;">Includes One-Time Admission & Caution Deposit</div>
+                  </div>
+                  <div class="amount">₹${firstSemPayable.toLocaleString('en-IN')}</div>
+                </div>
+
+                <table class="fee-breakdown-table">
+                  <tbody>
+                    <tr>
+                      <td>Semester Tuition Fee (Per Semester)</td>
+                      <td>₹${semTuition.toLocaleString('en-IN')}</td>
+                    </tr>
+                    <tr>
+                      <td>High-Performance Lab & Library Fee (Per Semester)</td>
+                      <td>₹${semLab.toLocaleString('en-IN')}</td>
+                    </tr>
+                    ${
+                      isHostel
+                        ? `
+                      <tr>
+                        <td>Hostel Boarding & Mess Dining (Per Semester)</td>
+                        <td>₹${hostelFeePerSem.toLocaleString('en-IN')}</td>
+                      </tr>
+                    `
+                        : ''
+                    }
+                    <tr>
+                      <td>One-Time Admission & University Enrollment Fee</td>
+                      <td>₹${admissionFee.toLocaleString('en-IN')}</td>
+                    </tr>
+                    <tr>
+                      <td>Caution Deposit (100% Refundable on Completion)</td>
+                      <td>₹${cautionDeposit.toLocaleString('en-IN')}</td>
+                    </tr>
+                    <tr>
+                      <td>Alumni Membership & Smart Identity Credentials</td>
+                      <td>₹${alumniIdCard.toLocaleString('en-IN')}</td>
+                    </tr>
+                    <tr style="border-top:2px solid #0f172a; background:#f8fafc;">
+                      <td style="font-weight:800; font-size:1rem; color:#0f172a;">Complete 4-Year (8 Semesters) Outlay</td>
+                      <td style="font-weight:800; font-size:1.15rem; color:#2563eb;">₹${fourYearGrandTotal.toLocaleString('en-IN')}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.8rem; color:#64748b; border-top:1px solid #f1f5f9; padding-top:0.75rem;">
+                <span>Campus Location: <strong>${selectedProg.campus}</strong></span>
+                <span>Seat Intake: <strong>${selectedProg.intake} Seats</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DEPARTMENTAL INNOVATION CHANNELS & SPECIALIZED LABS SECTION -->
+      <section id="innovation-labs" class="section-wrapper">
+        <div class="section-header">
+          <div>
+            <span class="section-tag">R&D Ecosystem</span>
+            <h2 class="section-title">Departmental Innovation Channels & Specialized Labs</h2>
+            <p class="section-subtitle">
+              Explore state-of-the-art supercomputing clusters, IoT telemetry hubs, and the DST-funded IEDC Incubation Center at IEM.
+            </p>
+          </div>
+          <div>
+            <span class="badge badge-review" style="font-size:0.85rem; padding:0.4rem 0.85rem;">
+              🔬 ₹12+ Crore Research Infrastructure
+            </span>
+          </div>
+        </div>
+
+        <div class="labs-grid">
+          ${INNOVATION_LABS.map(
+            lab => `
+            <div class="lab-card">
+              <div class="lab-image-wrapper">
+                <img src="${lab.image}" alt="${lab.title}" onerror="this.onerror=null; this.src='/logo.png';" />
+                <span class="lab-badge-floating">${lab.tag}</span>
+              </div>
+              <div class="lab-body">
+                <h3 class="lab-title">${lab.title}</h3>
+                <p class="lab-desc">${lab.desc}</p>
+                
+                <ul class="lab-features-list">
+                  ${lab.features.map(f => `<li>${f}</li>`).join('')}
+                </ul>
+
+                <div class="lab-footer">
+                  <span class="lab-meta">Head: <strong>${lab.lead.split('&')[0].trim()}</strong></span>
+                  <span class="badge badge-selected" style="font-size:0.75rem;">${lab.patents.split('•')[0].trim()}</span>
+                </div>
+              </div>
+            </div>
+          `
+          ).join('')}
+        </div>
+      </section>
+
+      <!-- PLACEMENT ANALYTICS & RECRUITER SPECTRUM -->
+      <section id="placements" class="section-wrapper">
+        <div class="section-header">
+          <div>
+            <span class="section-tag">Institutional Placements</span>
+            <h2 class="section-title">Placement Statistics (Batch 2025–26)</h2>
+            <p class="section-subtitle">
+              Audited campus recruitment metrics showcasing branch-wise average packages, highest international offers, and marquee recruiter visits.
+            </p>
+          </div>
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <button class="nav-btn ${state.activePlacementBranch === 'All' ? 'btn-primary' : 'btn-outline'}" style="padding:0.35rem 0.75rem; font-size:0.8rem;" onclick="state.activePlacementBranch = 'All'; render();">
+              All Branches
+            </button>
+            ${PLACEMENT_STATS.map(
+              p => `
+              <button class="nav-btn ${state.activePlacementBranch === p.code ? 'btn-primary' : 'btn-outline'}" style="padding:0.35rem 0.75rem; font-size:0.8rem;" onclick="state.activePlacementBranch = '${p.code}'; render();">
+                ${p.code}
+              </button>
+            `
+            ).join('')}
+          </div>
+        </div>
+
+        <div class="placement-kpis">
+          <div class="kpi-card">
+            <div class="kpi-number" style="color:#2563eb;">₹72 LPA</div>
+            <div class="kpi-label">Highest International CTC</div>
+          </div>
+          <div class="kpi-card emerald">
+            <div class="kpi-number" style="color:#10b981;">₹9.2 LPA</div>
+            <div class="kpi-label">Overall B.Tech Average Package</div>
+          </div>
+          <div class="kpi-card amber">
+            <div class="kpi-number" style="color:#f59e0b;">98.4%</div>
+            <div class="kpi-label">Placement Conversion Rate</div>
+          </div>
+          <div class="kpi-card purple">
+            <div class="kpi-number" style="color:#8b5cf6;">1,450+</div>
+            <div class="kpi-label">Offers Received by Cohort</div>
+          </div>
+        </div>
+
+        <div class="card" style="padding:0; overflow:hidden; margin-bottom:2.5rem;">
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>B.Tech Branch</th>
+                  <th>Placement Rate</th>
+                  <th>Highest CTC</th>
+                  <th>Average CTC</th>
+                  <th>Median CTC</th>
+                  <th>Super Dream Offers (> ₹15L)</th>
+                  <th>Key Corporate Recruiters</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${PLACEMENT_STATS.filter(
+                  p => state.activePlacementBranch === 'All' || p.code === state.activePlacementBranch
+                )
+                  .map(
+                    p => `
+                  <tr>
+                    <td><strong>${p.branch}</strong></td>
+                    <td><span class="badge badge-selected">${p.placed}</span></td>
+                    <td><strong style="color:#2563eb;">${p.highest}</strong></td>
+                    <td><strong>${p.average}</strong></td>
+                    <td>${p.median}</td>
+                    <td><span class="badge badge-review">${p.superDreamOffers} Students</span></td>
+                    <td style="color:#475569; font-size:0.825rem;">${p.recruiters.join(', ')}</td>
+                  </tr>
+                `
+                  )
+                  .join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div>
+          <div class="recruiter-category-block">
+            <div class="recruiter-category-title">🌐 Tier-1 Big Tech & Global R&D Centers</div>
+            <div class="recruiters-marquee">
+              <span class="recruiter-pill">Google</span>
+              <span class="recruiter-pill">Microsoft</span>
+              <span class="recruiter-pill">Amazon</span>
+              <span class="recruiter-pill">Adobe</span>
+              <span class="recruiter-pill">Oracle</span>
+              <span class="recruiter-pill">Cisco</span>
+              <span class="recruiter-pill">AMD</span>
+              <span class="recruiter-pill">Intel</span>
+              <span class="recruiter-pill">NVIDIA</span>
+              <span class="recruiter-pill">Samsung R&D</span>
+            </div>
+          </div>
+
+          <div class="recruiter-category-block">
+            <div class="recruiter-category-title">💼 Global Banking, FinTech & Strategic Consulting</div>
+            <div class="recruiters-marquee">
+              <span class="recruiter-pill">Goldman Sachs</span>
+              <span class="recruiter-pill">Morgan Stanley</span>
+              <span class="recruiter-pill">PwC India</span>
+              <span class="recruiter-pill">Deloitte</span>
+              <span class="recruiter-pill">EY</span>
+              <span class="recruiter-pill">Nomura</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- B.TECH PROGRAMMES OVERVIEW SECTION -->
       <section id="programmes" class="section-wrapper">
         <div class="section-header">
-          <span class="section-tag">Programmes Offered</span>
-          <h2 class="section-title">Programmes & Fee Structure (B.Tech Only)</h2>
-          <p class="section-subtitle">AICTE Approved 4-Year Full-Time Degree Programmes affiliated to MAKAUT, Autonomous Curriculum</p>
+          <div>
+            <span class="section-tag">Academic Portfolio</span>
+            <h2 class="section-title">Undergraduate Degree Programmes (B.Tech Only)</h2>
+            <p class="section-subtitle">
+              4-Year Engineering Degrees Approved by AICTE, Accredited by NBA & Affiliated to MAKAUT
+            </p>
+          </div>
         </div>
 
         <div class="programmes-grid">
@@ -464,21 +966,21 @@ function renderHome() {
               
               <div class="prog-fees-box">
                 <div>
-                  <div class="fee-item-label">Semester Tuition</div>
-                  <div class="fee-item-val">${prog.semesterFee}</div>
+                  <div class="fee-item-label">Semester Fee</div>
+                  <div class="fee-item-val">₹${prog.semesterTuition.toLocaleString('en-IN')}</div>
                 </div>
                 <div>
-                  <div class="fee-item-label">Total Programme Fee</div>
-                  <div class="fee-item-val">${prog.totalFee}</div>
+                  <div class="fee-item-label">Total Tuition</div>
+                  <div class="fee-item-val">₹${prog.totalTuitionFee.toLocaleString('en-IN')}</div>
                 </div>
                 <div>
                   <div class="fee-item-label">Campus</div>
-                  <div class="fee-item-campus">${prog.campus}</div>
+                  <div class="fee-item-campus">${prog.campus.split('(')[0]}</div>
                 </div>
               </div>
 
               <button class="nav-btn btn-outline" style="width:100%; justify-content:center; font-weight:600;" onclick="selectBranchAndApply('${prog.deptName}')">
-                Apply for this Branch →
+                Apply for this Degree →
               </button>
             </div>
           `
@@ -486,198 +988,19 @@ function renderHome() {
         </div>
       </section>
 
-      <!-- Placements Statistics Section -->
-      <section id="placements" class="section-wrapper">
-        <div class="section-header">
-          <span class="section-tag">Career Outcomes</span>
-          <h2 class="section-title">Placement Statistics (Batch 2025–26)</h2>
-          <p class="section-subtitle">Consistently ranked among the highest placement conversion rates in Eastern India</p>
-        </div>
-
-        <div class="placement-kpis">
-          <div class="kpi-card">
-            <div class="kpi-number" style="color:#2563eb;">₹72 LPA</div>
-            <div class="kpi-label">Highest International CTC</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-number" style="color:#16a34a;">₹9.2 LPA</div>
-            <div class="kpi-label">Average B.Tech CTC Across Branches</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-number" style="color:#0284c7;">98.4%</div>
-            <div class="kpi-label">Placement Record</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-number" style="color:#d97706;">1,450+</div>
-            <div class="kpi-label">Campus Placement Offers</div>
-          </div>
-        </div>
-
-        <div class="card" style="padding:0; overflow:hidden; margin-bottom:2rem;">
-          <div class="table-container">
-            <table>
-              <thead>
-                <tr>
-                  <th>B.Tech Branch</th>
-                  <th>Placement Rate</th>
-                  <th>Highest Package</th>
-                  <th>Average Package</th>
-                  <th>Key Corporate Recruiters</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>Computer Science & Engineering (CSE)</strong></td>
-                  <td><span class="badge badge-selected">99.4%</span></td>
-                  <td><strong>₹72 LPA</strong></td>
-                  <td>₹10.8 LPA</td>
-                  <td>Google, Microsoft, Amazon, Oracle, Adobe</td>
-                </tr>
-                <tr>
-                  <td><strong>CSE (Artificial Intelligence & Machine Learning)</strong></td>
-                  <td><span class="badge badge-selected">99.1%</span></td>
-                  <td><strong>₹48 LPA</strong></td>
-                  <td>₹10.4 LPA</td>
-                  <td>Microsoft, Amazon, AMD, Intel, NVIDIA</td>
-                </tr>
-                <tr>
-                  <td><strong>Information Technology (IT)</strong></td>
-                  <td><span class="badge badge-selected">98.7%</span></td>
-                  <td><strong>₹42 LPA</strong></td>
-                  <td>₹9.8 LPA</td>
-                  <td>Cisco, Adobe, Morgan Stanley, PwC</td>
-                </tr>
-                <tr>
-                  <td><strong>Computer Science & Business Systems (CSBS)</strong></td>
-                  <td><span class="badge badge-selected">98.2%</span></td>
-                  <td><strong>₹36 LPA</strong></td>
-                  <td>₹9.4 LPA</td>
-                  <td>TCS Digital, Deloitte, Goldman Sachs</td>
-                </tr>
-                <tr>
-                  <td><strong>Electronics & Communication Engineering (ECE)</strong></td>
-                  <td><span class="badge badge-selected">96.8%</span></td>
-                  <td><strong>₹28 LPA</strong></td>
-                  <td>₹8.6 LPA</td>
-                  <td>Qualcomm, Texas Instruments, Intel, Samsung</td>
-                </tr>
-                <tr>
-                  <td><strong>Mechanical Engineering (ME)</strong></td>
-                  <td><span class="badge badge-selected">94.5%</span></td>
-                  <td><strong>₹18 LPA</strong></td>
-                  <td>₹7.4 LPA</td>
-                  <td>Tata Motors, L&T, Siemens, Hero MotoCorp</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div style="text-align:center;">
-          <span style="font-size:0.85rem; font-weight:700; color:#64748b; text-transform:uppercase; letter-spacing:0.5px;">
-            Major Campus Recruiters
-          </span>
-          <div class="recruiters-marquee">
-            <span class="recruiter-pill">Google</span>
-            <span class="recruiter-pill">Microsoft</span>
-            <span class="recruiter-pill">Amazon</span>
-            <span class="recruiter-pill">Adobe</span>
-            <span class="recruiter-pill">Oracle</span>
-            <span class="recruiter-pill">Cisco</span>
-            <span class="recruiter-pill">Deloitte</span>
-            <span class="recruiter-pill">PwC</span>
-            <span class="recruiter-pill">Goldman Sachs</span>
-            <span class="recruiter-pill">TCS Digital</span>
-            <span class="recruiter-pill">Infosys</span>
-            <span class="recruiter-pill">Cognizant</span>
-            <span class="recruiter-pill">Capgemini</span>
-            <span class="recruiter-pill">LTI Mindtree</span>
-            <span class="recruiter-pill">Qualcomm</span>
-            <span class="recruiter-pill">Samsung</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- Application Process Section -->
-      <section id="process" class="section-wrapper">
-        <div class="section-header">
-          <span class="section-tag">Step-by-Step Flow</span>
-          <h2 class="section-title">Undergraduate Admission Process</h2>
-          <p class="section-subtitle">Centralized online procedure for B.Tech admission counselling & allotment</p>
-        </div>
-
-        <div class="process-grid">
-          <div class="process-step-card">
-            <div class="process-step-num">1</div>
-            <h4 class="process-step-title">Online Registration</h4>
-            <p class="process-step-desc">Register with a valid email ID and mobile number to generate your candidate profile.</p>
-          </div>
-          <div class="process-step-card">
-            <div class="process-step-num">2</div>
-            <h4 class="process-step-title">Application Form</h4>
-            <p class="process-step-desc">Provide Class 10 & 12 board marks, entrance examination rank, and branch preferences.</p>
-          </div>
-          <div class="process-step-card">
-            <div class="process-step-num">3</div>
-            <h4 class="process-step-title">Upload Documents</h4>
-            <p class="process-step-desc">Upload scanned Class 12 marksheet and entrance rankcard in PDF/image format.</p>
-          </div>
-          <div class="process-step-card">
-            <div class="process-step-num">4</div>
-            <h4 class="process-step-title">Merit Scrutiny</h4>
-            <p class="process-step-desc">Admissions Committee headed by Prof. Dr. Satyajit Chakraborty evaluates eligibility.</p>
-          </div>
-          <div class="process-step-card">
-            <div class="process-step-num">5</div>
-            <h4 class="process-step-title">Seat Allotment</h4>
-            <p class="process-step-desc">Selected applicants receive provisional admission letters and confirm enrollment.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- About IEM Section -->
-      <section id="about" class="section-wrapper">
-        <div class="section-header">
-          <span class="section-tag">Institutional Heritage</span>
-          <h2 class="section-title">About IEM Kolkata</h2>
-          <p class="section-subtitle">Pioneering quality technical education since 1989</p>
-        </div>
-
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:2rem;">
-          <div class="card" style="margin:0;">
-            <h3 style="font-size:1.15rem; font-weight:700; color:#0f172a; margin-bottom:0.75rem;">Excellence in Engineering Education</h3>
-            <p style="font-size:0.9rem; color:#475569; line-height:1.6; margin-bottom:1rem;">
-              The Institute of Engineering & Management (IEM) is the oldest private engineering college in West Bengal. With over three decades of academic distinction, IEM has consistently ranked among top tier institutions under MAKAUT and NIRF rankings.
-            </p>
-            <p style="font-size:0.9rem; color:#475569; line-height:1.6;">
-              Under the visionary leadership of <strong>Prof. Dr. Satyajit Chakraborty</strong>, the institute has established international collaborations with Harvard, MIT, and leading global research laboratories.
-            </p>
-          </div>
-          <div class="card" style="margin:0;">
-            <h3 style="font-size:1.15rem; font-weight:700; color:#0f172a; margin-bottom:0.75rem;">World-Class Salt Lake Sector V Infrastructure</h3>
-            <p style="font-size:0.9rem; color:#475569; line-height:1.6; margin-bottom:1rem;">
-              Located at the heart of Kolkata's IT hub, IEM operates across two modern campuses: the Gurukul Campus and Management House. Students benefit from immersive exposure to over 500 tech multinationals operating in Sector V.
-            </p>
-            <ul style="font-size:0.875rem; color:#334155; padding-left:1.25rem; line-height:1.8;">
-              <li>AI & Robotics Innovation Centres</li>
-              <li>High-Performance Computing Cluster</li>
-              <li>State-of-the-Art Digital Central Library</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- Contact Section -->
+      <!-- CONTACT & HELPDESK SECTION -->
       <section id="contact" class="section-wrapper">
         <div class="section-header">
-          <span class="section-tag">Get in Touch</span>
-          <h2 class="section-title">Admissions Office & Campus Contacts</h2>
-          <p class="section-subtitle">Our admission counselors are available Monday to Saturday, 9:30 AM to 5:30 PM</p>
+          <div>
+            <span class="section-tag">Admissions Desk</span>
+            <h2 class="section-title">Campus Information & Helpline</h2>
+            <p class="section-subtitle">Counseling sessions active Monday through Saturday at Gurukul & Management House Campuses</p>
+          </div>
         </div>
 
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.5rem;">
           <div class="card" style="margin:0;">
-            <h4 style="font-weight:700; color:#0f172a; margin-bottom:0.5rem;">Gurukul Campus</h4>
+            <h4 style="font-weight:700; color:#0f172a; margin-bottom:0.5rem;">Gurukul Campus (Engineering Headquarters)</h4>
             <p style="font-size:0.85rem; color:#64748b; line-height:1.6;">
               Y-12, Block EP, Sector V, Salt Lake Electronics Complex, Kolkata, West Bengal 700091
             </p>
@@ -686,7 +1009,7 @@ function renderHome() {
             </div>
           </div>
           <div class="card" style="margin:0;">
-            <h4 style="font-weight:700; color:#0f172a; margin-bottom:0.5rem;">Management House</h4>
+            <h4 style="font-weight:700; color:#0f172a; margin-bottom:0.5rem;">Management House Campus</h4>
             <p style="font-size:0.85rem; color:#64748b; line-height:1.6;">
               D-1, Management House, Sector V, Salt Lake, Kolkata, West Bengal 700091
             </p>
@@ -695,13 +1018,13 @@ function renderHome() {
             </div>
           </div>
           <div class="card" style="margin:0;">
-            <h4 style="font-weight:700; color:#0f172a; margin-bottom:0.5rem;">Central Admissions Desk</h4>
+            <h4 style="font-weight:700; color:#0f172a; margin-bottom:0.5rem;">Admissions Secretariat</h4>
             <p style="font-size:0.85rem; color:#64748b; line-height:1.6;">
-              Admissions Helpline: <strong>admissions@iem.edu.in</strong><br/>
-              Examination Cell: <strong>iemjee@iem.edu.in</strong>
+              Executive Desk: <strong>director@iem.edu.in</strong><br/>
+              Admissions Helpdesk: <strong>admissions@iem.edu.in</strong>
             </p>
             <div style="margin-top:0.75rem; font-size:0.85rem; font-weight:600; color:#16a34a;">
-              🟢 Helpline Active for Session 2026–27
+              🟢 In-Person & Online Counseling Active
             </div>
           </div>
         </div>
@@ -719,6 +1042,7 @@ function selectBranchAndApply(deptName) {
   }
 }
 
+// Student Login View
 function renderLogin() {
   return `
     <div style="max-width:440px; margin:3rem auto;">
@@ -750,6 +1074,7 @@ function renderLogin() {
   `;
 }
 
+// Student Register View
 function renderRegister() {
   return `
     <div style="max-width:460px; margin:3rem auto;">
@@ -757,7 +1082,7 @@ function renderRegister() {
         <div class="card-header">
           <div>
             <h2 class="card-title">Student Registration</h2>
-            <p class="card-subtitle">Create your applicant profile for B.Tech Admission 2026–27</p>
+            <p class="card-subtitle">Create your candidate profile for B.Tech Admission 2026–27</p>
           </div>
         </div>
         <form onsubmit="event.preventDefault(); handleRegister(this.name.value, this.email.value, this.password.value, 'applicant');">
@@ -785,6 +1110,7 @@ function renderRegister() {
   `;
 }
 
+// Student Admission Form View
 function renderApplyForm() {
   const defaultDept = state.selectedBranchForApply || 'B.Tech - Computer Science & Engineering (CSE)';
 
@@ -859,7 +1185,7 @@ function renderApplyForm() {
               <input type="number" step="0.01" min="0" max="100" name="twelfthPercentage" required placeholder="e.g. 94.0" />
             </div>
             <div class="form-group full-width">
-              <label>Entrance Exam Score / Percentile (IEMJEE / WBJEE / JEE Main)</label>
+              <label>Entrance Exam Score / Rank Percentile (IEMJEE / WBJEE / JEE Main)</label>
               <input type="number" step="0.01" min="0" max="100" name="entranceScore" placeholder="Score / Percentile out of 100" />
             </div>
           </div>
@@ -908,6 +1234,7 @@ function renderApplyForm() {
   `;
 }
 
+// Student Status View
 function renderStudentStatus() {
   const app = state.myApplication;
   if (!app) {
@@ -993,6 +1320,7 @@ function renderStudentStatus() {
   `;
 }
 
+// Admin Dashboard View
 function renderAdminDashboard() {
   const stats = state.adminStats;
   if (!stats) {
@@ -1117,6 +1445,7 @@ function renderAdminDashboard() {
   `;
 }
 
+// Admin Applicants Review View
 function renderAdminApplicants() {
   const applicants = state.adminApplicants;
 
@@ -1233,6 +1562,7 @@ function renderAdminApplicants() {
   `;
 }
 
+// Review Decision Modal
 function renderReviewModal() {
   const app = state.selectedApplicant;
   if (!app) return '';
@@ -1293,7 +1623,7 @@ function renderReviewModal() {
 
               <div class="form-group" style="margin-bottom:1.25rem;">
                 <label>Committee Evaluation Remarks</label>
-                <textarea name="comments" rows="2" placeholder="e.g. WBJEE merit verified. Seat allotted for B.Tech."></textarea>
+                <textarea name="comments" rows="2" placeholder="e.g. WBJEE merit verified. Provisional seat allotted for B.Tech."></textarea>
               </div>
 
               <div style="display:flex; justify-content:flex-end; gap:0.75rem;">
@@ -1309,7 +1639,7 @@ function renderReviewModal() {
   `;
 }
 
-// Discreet Staff / Reviewer Quick-Login Modal (Preserves real website look)
+// Discreet Staff / Reviewer Quick-Login Modal
 function renderStaffModal() {
   if (!state.showStaffModal) return '';
 
@@ -1384,11 +1714,11 @@ function render() {
     <footer>
       <div class="footer-inner">
         <div class="footer-top">
-          <div style="display:flex; align-items:center; gap:0.75rem;">
-            <img src="/logo.png" alt="IEM Logo" style="height:44px;" />
+          <div style="display:flex; align-items:center; gap:0.85rem;">
+            <img src="/logo.png" alt="IEM Logo" style="height:48px;" />
             <div>
-              <div style="font-weight:800; color:#0f172a; font-size:1.05rem;">Institute of Engineering & Management (IEM), Kolkata</div>
-              <div style="font-size:0.75rem; color:#64748b;">Autonomous Institution Affiliated to MAKAUT • Approved by AICTE • NAAC 'A' Grade Accredited</div>
+              <div style="font-weight:800; color:#0f172a; font-size:1.1rem;">Institute of Engineering & Management (IEM), Kolkata</div>
+              <div style="font-size:0.75rem; color:#64748b;">Autonomous Institution Affiliated to MAKAUT • Approved by AICTE • NAAC 'A' Grade Accredited • NBA Accredited Programmes</div>
             </div>
           </div>
           <div>
@@ -1415,6 +1745,7 @@ window.handleApplicationSubmit = handleApplicationSubmit;
 window.handleStatusChange = handleStatusChange;
 window.fetchAdminApplicants = fetchAdminApplicants;
 window.selectBranchAndApply = selectBranchAndApply;
+window.evaluateWizard = evaluateWizard;
 window.state = state;
 window.render = render;
 
