@@ -1,7 +1,7 @@
 {
-  "name": "mean-stack-admission-system",
+  "name": "iem-admission-portal",
   "version": "1.0.0",
-  "description": "MEAN Stack POC Lab Assignment (PCCCS504) - Online Admission System",
+  "description": "Institute of Engineering & Management (IEM), Kolkata - Online Undergraduate Admission Portal",
   "type": "module",
   "main": "server/server.js",
   "scripts": {

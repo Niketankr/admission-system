@@ -8,8 +8,16 @@ export const memoryStore = {
   users: [
     {
       _id: 'usr_admin_001',
-      name: 'Dr. Sarah Jenkins (Dean of Admissions)',
+      name: 'Prof. Dr. Satyajit Chakraborty (Director, IEM Kolkata)',
       email: 'admin@college.edu',
+      password: ADMIN_HASH,
+      role: 'admin',
+      createdAt: new Date().toISOString()
+    },
+    {
+      _id: 'usr_admin_002',
+      name: 'Prof. Dr. Satyajit Chakraborty (Director, IEM Kolkata)',
+      email: 'director@iem.edu.in',
       password: ADMIN_HASH,
       role: 'admin',
       createdAt: new Date().toISOString()
@@ -61,14 +69,14 @@ export const memoryStore = {
       gender: 'Male',
       phone: '+91 98765 43210',
       email: 'aarav@example.com',
-      address: '42 MG Road, Bangalore, Karnataka',
+      address: '42 MG Road, Salt Lake, Kolkata',
       guardianName: 'Rajesh Sharma',
       tenthBoard: 'CBSE',
       tenthPercentage: 94,
       twelfthBoard: 'CBSE',
       twelfthPercentage: 96,
       entranceScore: 98.4,
-      department: 'Computer Science & Engineering',
+      department: 'B.Tech - Computer Science & Engineering (CSE)',
       document: {
         originalName: '12th_Marksheet_Aarav.pdf',
         filename: 'sample-marksheet.pdf',
@@ -82,19 +90,19 @@ export const memoryStore = {
         {
           status: 'Submitted',
           updatedBy: { _id: 'usr_stu_001', name: 'Aarav Sharma' },
-          comments: 'Initial submission with CBSE Class 12 marksheet',
+          comments: 'Application submitted with CBSE Class 12 marksheet & WBJEE rankcard',
           timestamp: new Date(Date.now() - 5 * 86400000).toISOString()
         },
         {
           status: 'Under Review',
-          updatedBy: { _id: 'usr_admin_001', name: 'Dr. Sarah Jenkins' },
-          comments: 'Document verified. Cut-off met for CSE department.',
+          updatedBy: { _id: 'usr_admin_001', name: 'Prof. Dr. Satyajit Chakraborty' },
+          comments: 'Academic credentials verified. WBJEE merit cutoff satisfied for B.Tech CSE.',
           timestamp: new Date(Date.now() - 2 * 86400000).toISOString()
         },
         {
           status: 'Selected',
-          updatedBy: { _id: 'usr_admin_001', name: 'Dr. Sarah Jenkins' },
-          comments: 'Congratulations! Selected for CSE batch 2026-2030.',
+          updatedBy: { _id: 'usr_admin_001', name: 'Prof. Dr. Satyajit Chakraborty' },
+          comments: 'Provisional Admission Offer issued for B.Tech CSE (Gurukul Campus).',
           timestamp: new Date().toISOString()
         }
       ],
@@ -112,14 +120,14 @@ export const memoryStore = {
       gender: 'Female',
       phone: '+91 91234 56789',
       email: 'diya@example.com',
-      address: '15 Nehru Nagar, Ahmedabad, Gujarat',
+      address: '15 Sector V, Salt Lake, Kolkata',
       guardianName: 'Hitesh Patel',
-      tenthBoard: 'GSEB',
+      tenthBoard: 'ISC',
       tenthPercentage: 91,
-      twelfthBoard: 'GSEB',
+      twelfthBoard: 'ISC',
       twelfthPercentage: 89,
       entranceScore: 92.1,
-      department: 'Information Technology',
+      department: 'B.Tech - CSE (AI & ML)',
       document: {
         originalName: 'Diya_Marksheet.pdf',
         filename: 'sample-marksheet.pdf',
@@ -133,13 +141,13 @@ export const memoryStore = {
         {
           status: 'Submitted',
           updatedBy: { _id: 'usr_stu_002', name: 'Diya Patel' },
-          comments: 'Application submitted',
+          comments: 'Application submitted for B.Tech CSE (AI & ML)',
           timestamp: new Date(Date.now() - 3 * 86400000).toISOString()
         },
         {
           status: 'Under Review',
-          updatedBy: { _id: 'usr_admin_001', name: 'Dr. Sarah Jenkins' },
-          comments: 'Checking entrance score and domicile quota certificates.',
+          updatedBy: { _id: 'usr_admin_001', name: 'Prof. Dr. Satyajit Chakraborty' },
+          comments: 'Counseling verification in progress for IEMJEE / JEE Main ranks.',
           timestamp: new Date().toISOString()
         }
       ],
@@ -157,14 +165,14 @@ export const memoryStore = {
       gender: 'Male',
       phone: '+91 94567 89012',
       email: 'rohan@example.com',
-      address: '88 Civil Lines, Jaipur, Rajasthan',
+      address: '88 New Town Action Area 1, Kolkata',
       guardianName: 'Vikas Verma',
-      tenthBoard: 'RBSE',
-      tenthPercentage: 82,
-      twelfthBoard: 'RBSE',
-      twelfthPercentage: 84,
+      tenthBoard: 'WBCHSE',
+      tenthPercentage: 84,
+      twelfthBoard: 'WBCHSE',
+      twelfthPercentage: 86,
       entranceScore: 85.0,
-      department: 'Electronics & Communication Engineering',
+      department: 'B.Tech - Electronics & Communication Engineering (ECE)',
       document: {
         originalName: 'Marksheet_Rohan.pdf',
         filename: 'sample-marksheet.pdf',
@@ -178,7 +186,7 @@ export const memoryStore = {
         {
           status: 'Submitted',
           updatedBy: { _id: 'usr_stu_003', name: 'Rohan Verma' },
-          comments: 'Fresh application submitted',
+          comments: 'Application filed online with Class 12 WBCHSE marksheet',
           timestamp: new Date().toISOString()
         }
       ],
@@ -196,14 +204,14 @@ export const memoryStore = {
       gender: 'Female',
       phone: '+91 97890 12345',
       email: 'ananya@example.com',
-      address: '10 Park Street, Kolkata, West Bengal',
+      address: '10 Southern Avenue, Kolkata',
       guardianName: 'Subir Sen',
       tenthBoard: 'ICSE',
       tenthPercentage: 68,
       twelfthBoard: 'ISC',
-      twelfthPercentage: 62,
-      entranceScore: 48.0,
-      department: 'Civil Engineering',
+      twelfthPercentage: 42,
+      entranceScore: 32.0,
+      department: 'B.Tech - Information Technology (IT)',
       document: {
         originalName: 'Ananya_ISC_Doc.pdf',
         filename: 'sample-marksheet.pdf',
@@ -217,19 +225,19 @@ export const memoryStore = {
         {
           status: 'Submitted',
           updatedBy: { _id: 'usr_stu_004', name: 'Ananya Sen' },
-          comments: 'Initial submission',
+          comments: 'Initial application submitted',
           timestamp: new Date(Date.now() - 7 * 86400000).toISOString()
         },
         {
           status: 'Under Review',
-          updatedBy: { _id: 'usr_admin_001', name: 'Dr. Sarah Jenkins' },
-          comments: 'Screening for minimum eligibility cutoff.',
+          updatedBy: { _id: 'usr_admin_001', name: 'Prof. Dr. Satyajit Chakraborty' },
+          comments: 'Eligibility verification against AICTE/WBJEE 45% aggregate cutoff.',
           timestamp: new Date(Date.now() - 4 * 86400000).toISOString()
         },
         {
           status: 'Rejected',
-          updatedBy: { _id: 'usr_admin_001', name: 'Dr. Sarah Jenkins' },
-          comments: 'Does not meet minimum aggregate percentage requirement (62% vs 70% cutoff).',
+          updatedBy: { _id: 'usr_admin_001', name: 'Prof. Dr. Satyajit Chakraborty' },
+          comments: 'Does not satisfy mandatory 45% PCM minimum eligibility threshold.',
           timestamp: new Date().toISOString()
         }
       ],
@@ -237,4 +245,3 @@ export const memoryStore = {
     }
   ]
 };
-

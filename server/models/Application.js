@@ -97,16 +97,17 @@ const applicationSchema = new mongoose.Schema(
       min: 0
     },
 
-    // Department / Program
+    // Department / Program (B.Tech Only)
     department: {
       type: String,
       required: [true, 'Department is required'],
       enum: [
-        'Computer Science & Engineering',
-        'Information Technology',
-        'Electronics & Communication Engineering',
-        'Mechanical Engineering',
-        'Civil Engineering'
+        'B.Tech - Computer Science & Engineering (CSE)',
+        'B.Tech - CSE (AI & ML)',
+        'B.Tech - Information Technology (IT)',
+        'B.Tech - Computer Science & Business Systems (CSBS)',
+        'B.Tech - Electronics & Communication Engineering (ECE)',
+        'B.Tech - Mechanical Engineering (ME)'
       ]
     },
 

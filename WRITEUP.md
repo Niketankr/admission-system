@@ -1,14 +1,14 @@
-# Design Choices and Architectural Write-Up
-**Project:** Online Admission System (MEAN Stack Proof of Concept)  
-**Subject:** Software Engineering Lab (PCCCS504)  
-**Author:** Student Submission  
+# Design Choices and Architectural Report
+**Institution:** Institute of Engineering & Management (IEM), Kolkata  
+**Project:** Online Undergraduate Admission Portal (B.Tech Session 2026–27)  
+**Leadership:** Admissions Committee headed by Prof. Dr. Satyajit Chakraborty  
 
 ---
 
-## 1. Introduction & Problem Statement
-Traditional university admission workflows often face bottlenecks such as physical document verification queues, lack of real-time application status visibility for candidates, and fragmented evaluation by admission committees. 
+## 1. Institutional Context & System Overview
+Traditional engineering admission workflows often face bottlenecks such as manual transcript verification queues, lack of real-time application status visibility for candidates, and fragmented evaluation by admission committees. 
 
-This project delivers a **Proof of Concept (POC)** for a centralized, web-based **Online Admission System** built on the **MEAN Stack** (MongoDB, Express.js, Angular Architecture, Node.js). It demonstrates how a modern asynchronous JavaScript stack can streamline student application filing, document handling, state transitions, and administrative oversight.
+This system provides a centralized, web-based **Online Admission Portal** for the **Institute of Engineering & Management (IEM), Kolkata**. It streamlines student application filing, document handling, state transitions, and administrative oversight.
 
 ---
 

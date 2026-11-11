@@ -63,7 +63,7 @@ async function runTests() {
     assert(statsRes.status === 200 && stats.total >= 4 && stats.averages.avgTenth > 0, '5. Admin Analytics Aggregation (/api/applications/stats/summary)');
 
     // 6. Admin Filter Applicants by Department
-    const filterRes = await fetch(`${BASE}/applications?department=Computer%20Science%20%26%20Engineering`, {
+    const filterRes = await fetch(`${BASE}/applications?department=B.Tech%20-%20Computer%20Science%20%26%20Engineering%20(CSE)`, {
       headers: { Authorization: `Bearer ${adminToken}` }
     });
     const filtered = await filterRes.json();

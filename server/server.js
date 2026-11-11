@@ -55,7 +55,8 @@ app.get('/api/health', (req, res) => {
     status: 'ok',
     environment: isVercel ? 'vercel-serverless' : 'standalone-node',
     timestamp: new Date(),
-    project: 'MEAN Stack Admission POC'
+    institution: 'Institute of Engineering & Management (IEM), Kolkata',
+    portal: 'Online Undergraduate Admission Portal'
   });
 });
 

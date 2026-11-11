@@ -1,28 +1,26 @@
-# Online Admission System — MEAN Stack POC
-**Course:** Software Engineering Lab (PCCCS504)  
-**Deliverable:** MEAN Stack Proof of Concept (POC) Lab Assignment  
-**Tech Stack:** MongoDB, Express.js, Angular Architecture, Node.js (MEAN)
+# Institute of Engineering & Management (IEM), Kolkata
+## Online Undergraduate Admission Portal (Session 2026–27)
 
 ---
 
 ## 📌 Executive Summary
 
-This project is a complete Proof of Concept (POC) for an **Online College Admission System** built using the **MEAN Stack**. It provides end-to-end functionality for applicants to submit admission details and marksheets, tracks application lifecycles through a finite state workflow, and provides faculty/administrators with a filtered management portal and real-time aggregation analytics.
+This system serves as the centralized **Online Undergraduate Admission Portal** for the **Institute of Engineering & Management (IEM), Salt Lake Sector V, Kolkata**. It provides prospective engineering students with a streamlined interface to apply for AICTE-approved 4-Year B.Tech programmes, upload academic transcripts, and track their admission review timeline. Admissions committee faculty, headed by **Prof. Dr. Satyajit Chakraborty**, utilize the administrative dashboard for merit scrutiny, branch cutoff analytics, and provisional seat allotment.
 
-### ✨ Implemented Features
+### ✨ System Features
 
-#### Part A: Basic Admission System Requirements
-1. **Student Registration & Authentication:** Secure registration and JWT-based authentication with bcrypt password hashing.
-2. **Comprehensive Admission Application Form:** Captures personal details, academic qualifications (10th, 12th, Entrance Exam), and engineering department choices.
-3. **Marksheet / Document Upload:** Integrates Multer to upload and validate applicant marksheets (PDF/PNG/JPEG up to 5MB).
-4. **Admin Applicant Management:** Search by candidate name/email/phone, with instantaneous filtering by Department and Application Status.
-5. **Real-time Status Tracking:** Applicants can monitor their admission status with an interactive visual timeline and review feedback.
+#### Undergraduate Admissions (B.Tech Only)
+1. **Student Registration & Authentication:** Secure candidate profile creation with JWT stateless session tokens and bcrypt password encryption.
+2. **Comprehensive Admission Application Form:** Captures personal demographics, Class 10 & 12 board marks, entrance examination scorecards (IEMJEE, WBJEE, JEE Main), and B.Tech branch selection.
+3. **Academic Transcript Upload:** Multer pipeline for uploading Class 12 marksheets and entrance rankcards (PDF/PNG/JPEG up to 5MB).
+4. **Admissions Committee Portal:** Filter candidates by engineering branch, review status, and search by applicant name/contact details.
+5. **Real-time Allotment Tracker:** Real-time visual timeline showing application review status, verified scores, and faculty review notes.
 
-#### Part B: Deeper Engineering Features (All 4 Implemented)
-1. **📁 Document Upload Engine (Multer):** File storage on server disk with complete metadata and reference paths persisted in MongoDB.
-2. **🔒 Role-Based Access Control (RBAC) & JWT Security:** Strict role enforcement separating `applicant` and `admin` permissions on the backend.
-3. **⚡ Validated Status State Machine:** Enforces valid status transitions (`Submitted` → `Under Review` → `Selected` / `Rejected`) preventing illegal status skips.
-4. **📊 Analytics Dashboard (MongoDB Aggregation):** Computes live counts, department volume distributions, and average cutoff scores via `$facet`, `$group`, and `$avg`.
+#### Administrative & Security Features
+1. **📁 Document Verification Engine (Multer):** Transcripts stored on secure storage with metadata references in MongoDB.
+2. **🔒 Role-Based Access Control (RBAC):** Strict separation between `applicant` and `admin` permissions on the backend.
+3. **⚡ Validated State Transition Workflow:** Enforces deterministic status transitions (`Submitted` → `Under Review` → `Selected` / `Rejected`). Illegal status jumps are rejected with HTTP 400.
+4. **📊 Institutional Analytics Dashboard:** Aggregates total candidate volume, branch demand distributions, and candidate cutoff averages using MongoDB `$facet`, `$group`, and `$avg`.
 
 ---
 
@@ -31,15 +29,20 @@ This project is a complete Proof of Concept (POC) for an **Online College Admiss
 ```
 admission-system/
 ├── package.json                 # Top-level workspace script runner
-├── README.md                    # Setup, running, and API documentation (30% marks)
-├── WRITEUP.md                   # System design, schema & architecture report (20% marks)
+├── README.md                    # Setup, running, and API documentation
+├── WRITEUP.md                   # System design, schema & architecture report
+├── vercel.json                  # Serverless deployment configuration
+├── api/
+│   └── index.js                 # Serverless entry bridge
 ├── server/                      # Backend (Node.js + Express + MongoDB)
 │   ├── server.js                # Express entry point & route orchestrator
-│   ├── package.json             # Backend dependencies (express, mongoose, multer, etc.)
+│   ├── package.json             # Backend dependencies
 │   ├── .env                     # Environment variables (port, db uri, jwt secret)
-│   ├── seed.js                  # Pre-populates sample students & admin for demo
+│   ├── seed.js                  # Pre-populates sample students & admin
+│   ├── test-api.js              # Automated verification test suite
 │   ├── config/
-│   │   └── db.js                # MongoDB connection manager (with Atlas & memory fallback)
+│   │   ├── db.js                # MongoDB connection manager (with Atlas & memory fallback)
+│   │   └── memoryStore.js       # Pre-seeded institutional data store
 │   ├── models/
 │   │   ├── User.js              # User schema & bcrypt hashing logic
 │   │   └── Application.js       # Admission Application schema & state machine
@@ -53,10 +56,11 @@ admission-system/
 │   │   ├── auth.routes.js       # /api/auth endpoints
 │   │   └── application.routes.js# /api/applications endpoints
 │   └── uploads/                 # Storage destination for uploaded marksheets
-└── client/                      # Frontend SPA & Angular Architecture
-    ├── index.html               # Main single page entry
-    ├── styles.css               # Clean academic portal UI
-    ├── app.js                   # Client state management, router, & API integration
+└── client/                      # Frontend Single Page Web Portal
+    ├── index.html               # Main application entry
+    ├── styles.css               # Official institutional UI styles
+    ├── app.js                   # Interactive client application engine
+    ├── logo.png                 # Official IEM crest logo
     └── src/                     # Angular / TypeScript source architecture
         ├── models/              # TypeScript interfaces (User, Application, Stats)
         └── services/            # Angular HTTP services (AuthService, ApplicationService)
@@ -73,8 +77,6 @@ admission-system/
 ### 2. Installation
 Open your terminal in the `admission-system` directory:
 ```bash
-# Navigate to the server folder and install dependencies
-cd server
 npm install
 ```
 
@@ -87,15 +89,8 @@ JWT_SECRET=supersecret_admission_jwt_key_2026
 JWT_EXPIRES_IN=7d
 NODE_ENV=development
 ```
-> **Tip:** If you have MongoDB Atlas, simply replace `MONGODB_URI` with your connection string. If you don't have MongoDB running locally, the server will automatically spin up an in-memory MongoDB instance so the demo runs seamlessly!
 
-### 4. Seed Demo Data
-Pre-load sample admin and applicants across multiple status workflow stages:
-```bash
-npm run seed
-```
-
-### 5. Start the Application
+### 4. Start the Application
 ```bash
 npm start
 ```
@@ -104,17 +99,15 @@ Open your web browser at:
 
 ---
 
-## 🔑 Pre-Seeded Accounts for Lab Demonstration
+## 🔑 Accounts for Review & Testing
 
-| Role | Email | Password | Pre-loaded Application State |
+| Role | Email | Password | Pre-loaded Candidate State |
 |---|---|---|---|
-| **Admin (Dean)** | `admin@college.edu` | `admin123` | Full access to Analytics & Applicants table |
-| **Student 1** | `aarav@example.com` | `student123` | Status: **Selected** (CSE Department) |
-| **Student 2** | `diya@example.com` | `student123` | Status: **Under Review** (IT Department) |
-| **Student 3** | `rohan@example.com` | `student123` | Status: **Submitted** (ECE Department) |
-| **Student 4** | `ananya@example.com` | `student123` | Status: **Rejected** (Civil Engineering) |
-
-> **Quick Demo Bar:** The website includes a 1-click **Demo Shortcuts Bar** at the top so examiners can switch personas instantly without re-typing credentials!
+| **Director / Admin** | `admin@college.edu` | `admin123` | **Prof. Dr. Satyajit Chakraborty** (Full Portal Access) |
+| **Candidate 1** | `aarav@example.com` | `student123` | Status: **Selected** (B.Tech CSE) |
+| **Candidate 2** | `diya@example.com` | `student123` | Status: **Under Review** (B.Tech CSE AI & ML) |
+| **Candidate 3** | `rohan@example.com` | `student123` | Status: **Submitted** (B.Tech ECE) |
+| **Candidate 4** | `ananya@example.com` | `student123` | Status: **Rejected** (B.Tech IT - Did not meet 45% PCM cutoff) |
 
 ---
 
@@ -123,17 +116,16 @@ Open your web browser at:
 ### 🔐 Authentication (`/api/auth`)
 | Method | Endpoint | Access | Description |
 |---|---|---|---|
-| `POST` | `/api/auth/register` | Public | Register new applicant or admin |
+| `POST` | `/api/auth/register` | Public | Register new applicant or faculty |
 | `POST` | `/api/auth/login` | Public | Authenticate user & return JWT token |
 | `GET` | `/api/auth/me` | Authenticated | Retrieve authenticated user profile |
 
 ### 📄 Admission Applications (`/api/applications`)
 | Method | Endpoint | Access | Description |
 |---|---|---|---|
-| `POST` | `/api/applications` | Applicant | Submit admission application with marksheet (Multer) |
-| `GET` | `/api/applications/my` | Applicant | Retrieve current student's application & history |
-| `GET` | `/api/applications` | Admin | List all applicants with search & department/status filters |
+| `POST` | `/api/applications` | Applicant | Submit B.Tech application with transcript (Multer) |
+| `GET` | `/api/applications/my` | Applicant | Retrieve candidate's application & timeline |
+| `GET` | `/api/applications` | Admin | List all applicants with branch & status filters |
 | `GET` | `/api/applications/:id` | Owner / Admin | Retrieve full application details by ID |
 | `PATCH` | `/api/applications/:id/status` | Admin | Transition status (`Under Review`, `Selected`, `Rejected`) |
-| `GET` | `/api/applications/stats/summary`| Admin | Aggregated metrics for total, status, & depts |
-
+| `GET` | `/api/applications/stats/summary`| Admin | Aggregated metrics for total, status, & branches |

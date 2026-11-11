@@ -1,6 +1,7 @@
-# PCCCS504 Software Engineering Lab — Viva & Defense Guide
-**Project:** Online Admission System (MEAN Stack POC)  
-**Target:** Live Demonstration (15% Marks) & Code Understanding
+# IEM Kolkata — Online Undergraduate Admission System: Defense & Viva Guide
+**Institution:** Institute of Engineering & Management (IEM), Kolkata  
+**Portal:** B.Tech Admissions Portal (Session 2026–27)  
+**Leadership:** Admissions Committee headed by Prof. Dr. Satyajit Chakraborty
 
 ---
 
